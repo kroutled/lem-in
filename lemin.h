@@ -2,9 +2,11 @@
 # define LEMIN_H
 
 #include "./libft/libft.h"
+#include <fcntl.h>
 
 typedef struct	s_room t_room;
-typedef struct	s_anthill t_anthill;
+typedef struct	s_args t_args;
+typedef struct	s_vars t_vars;
 
 struct s_room
 {
@@ -12,11 +14,18 @@ struct s_room
 	int			start;
 	int			end;
 	t_room		*roomlinks[100000];
-}
+};
 
-struct	anthill
+struct	s_args
 {
 	t_room		*rooms[100000];
-}
+	char		*line;
+	char		**data;
+};
+
+struct	s_vars
+{
+	int		count;
+};
 
 #endif

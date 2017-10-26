@@ -70,6 +70,7 @@ SRC = ft_bzero.c		\
 	  ft_strndup.c		\
 	  wdlen.c			\
 	  minierror.c		\
+	  ft_readfile.c		\
 
 OBJ = $(SRC:.c=.o)
 
