@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kroutled <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/26 17:39:06 by kroutled          #+#    #+#             */
+/*   Updated: 2017/10/26 18:01:55 by kroutled         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lemin.h"
+#include <stdio.h>
 
 int		ft_startend(t_args *args, t_vars *vars)
 {
@@ -10,16 +23,31 @@ int		ft_startend(t_args *args, t_vars *vars)
 	{
 		ft_putendl("end");
 	}
+	return (0);
 }
 
 void	ft_setrooms(t_args *args, t_vars *vars)
 {
+	t_room	*rooms;
+	ft_bzero(&rooms, sizeof(t_room));
 	vars->count = 0;
+
 	while (args->data[vars->count])
 	{
 		if (args->data[vars->count][0] == '#')
 		{
-			ft_startend(args, vars);
+			if (ft_strstr(args->data[vars->count], "start"))
+			{
+				vars->count++;
+				rooms->start = 1;
+				rooms->name = &args->data[vars->count][0];
+				ft_putnbr(rooms->start);
+				ft_putendl(rooms->name);
+			}
+		}
+		else
+		{
+			vars->count++;
 		}
 		vars->count++;
 	}	  
