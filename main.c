@@ -1,5 +1,23 @@
 #include "lemin.h"
 
+void	ft_startend()
+{
+	
+}
+
+void	ft_setrooms(t_args *args, t_vars *vars)
+{
+	vars->count = 0;
+	while (args->data[vars->count])
+	{
+		if (args->data[vars->count][0] == '#')
+		{
+			ft_startend();
+		}
+		vars->count++;
+	}	  
+}
+
 void	ft_numants(t_args *args, t_vars *vars)
 {
 	vars->count = 0;
@@ -18,7 +36,7 @@ void	ft_numants(t_args *args, t_vars *vars)
 void	ft_anthill(t_args *args, t_vars *vars)
 {
 	ft_numants(args, vars);
-//	ft_setrooms(args, vars);
+	ft_setrooms(args, vars);
 }
 
 int main(int ac, char **av)

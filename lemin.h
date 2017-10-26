@@ -26,6 +26,8 @@ struct	s_args
 struct	s_vars
 {
 	int		count;
+	int		start;
+	int		end;
 	char	*numants;
 };
 
