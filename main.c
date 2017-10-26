@@ -1,13 +1,24 @@
 #include "lemin.h"
 
-void	ft_anthill(t_args *args, t_vars *vars)
+void	ft_numants(t_args *args, t_vars *vars)
 {
 	vars->count = 0;
 	while (args->data[vars->count])
 	{
-						
+		if (ft_isdigit(args->data[vars->count][0]))
+		{
+			vars->numants = args->data[vars->count];
+			break;
+		}
 		vars->count++;
 	}
+	ft_putendl(vars->numants);
+}
+
+void	ft_anthill(t_args *args, t_vars *vars)
+{
+	ft_numants(args, vars);
+//	ft_setrooms(args, vars);
 }
 
 int main(int ac, char **av)
