@@ -1,8 +1,15 @@
 #include "lemin.h"
 
-void	ft_startend()
+int		ft_startend(t_args *args, t_vars *vars)
 {
-	
+	if (ft_strstr(args->data[vars->count], "start"))
+	{
+		ft_putendl("start");
+	}
+	else if(ft_strstr(args->data[vars->count], "end"))
+	{
+		ft_putendl("end");
+	}
 }
 
 void	ft_setrooms(t_args *args, t_vars *vars)
@@ -12,7 +19,7 @@ void	ft_setrooms(t_args *args, t_vars *vars)
 	{
 		if (args->data[vars->count][0] == '#')
 		{
-			ft_startend();
+			ft_startend(args, vars);
 		}
 		vars->count++;
 	}	  
