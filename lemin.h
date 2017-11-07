@@ -25,6 +25,7 @@ struct s_room
 	char		*name;
 	int			start;
 	int			end;
+	int			full;
 	t_room		*roomlinks[100000];
 };
 
@@ -33,6 +34,7 @@ struct	s_args
 	t_room		*rooms[100000];
 	char		*line;
 	char		**data;
+	char		**ndata;
 };
 
 struct	s_vars
@@ -40,7 +42,8 @@ struct	s_vars
 	int		count;
 	int		start;
 	int		end;
-	char	*numants;
+	int		numants;
+	int		i;
 };
 
 #endif
