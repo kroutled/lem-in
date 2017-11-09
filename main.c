@@ -6,41 +6,19 @@
 /*   By: kroutled <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 17:39:06 by kroutled          #+#    #+#             */
-/*   Updated: 2017/11/09 16:51:21 by kroutled         ###   ########.fr       */
+/*   Updated: 2017/11/09 17:50:07 by kroutled         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 #include <stdio.h>
 
-int		ft_arrlen(char **arr)
+/*
+void	ft_tunnels(t_args *args, t_vars *vars)
 {
-	int		i;
 
-	i = 0;
-	while (arr[i])
-		i++;
-	return (i);
 }
-
-void	ft_roomcreate(t_args *args, t_vars *vars)
-{
-	if (ft_arrlen(args->args) > 3)
-		exit(0);
-	args->rooms[vars->r_count] = (t_room*)ft_memalloc(sizeof(t_room));
-	args->rooms[vars->r_count]->name = ft_strdup(args->args[0]);
-	if (vars->start == 1)
-	{
-		args->rooms[vars->r_count]->start = 1;
-		vars->start = 0;
-	}
-	if (vars->end == 1)
-	{
-		args->rooms[vars->r_count]->end = 1;
-		vars->end = 0;
-	}	
-}
-
+*/
 void	ft_startend(t_args *args, t_vars *vars)
 {
 	if (ft_strstr(args->line, "start"))
@@ -66,6 +44,11 @@ void	ft_frees(t_args *args)
 void	ft_anthill(t_args *args, t_vars *vars)
 {
 	vars->count = 0;
+	if (vars->fd == -1)
+	{
+		ft_putendl("Error");
+		exit(0);
+	}
 	while (get_next_line(vars->fd, &args->line) != 0)
 	{
 		if (vars->count < 1 && ft_isdigit((args->line[0])))
@@ -86,7 +69,7 @@ void	ft_anthill(t_args *args, t_vars *vars)
 					exit(0);
 				else if(args->args[1] == NULL)
 				{
-					ft_putendl("links");
+				//	ft_tunnels("links");
 				}
 				else
 				{

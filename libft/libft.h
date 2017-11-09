@@ -6,7 +6,7 @@
 /*   By: kroutled <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 17:44:53 by kroutled          #+#    #+#             */
-/*   Updated: 2017/10/26 12:57:38 by kroutled         ###   ########.fr       */
+/*   Updated: 2017/11/09 17:42:48 by kroutled         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+int					ft_arrlen(char **arr);
 char				*ft_readfile(int fd);
 void				error(char **args);
 size_t				wdlen(const char *str);

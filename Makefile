@@ -4,7 +4,8 @@ CC = gcc -Wall -Werror -Wextra
 
 INC = -L libft -lft
 
-SRC = main.c
+SRC = main.c	\
+	  rooms.c	\
 
 all: $(NAME)
 

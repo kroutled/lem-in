@@ -6,7 +6,7 @@
 /*   By: kroutled <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 17:39:16 by kroutled          #+#    #+#             */
-/*   Updated: 2017/11/09 16:51:18 by kroutled         ###   ########.fr       */
+/*   Updated: 2017/11/09 17:51:57 by kroutled         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,7 @@ struct	s_vars
 	int		numants;
 	int		r_count;
 };
+
+void	ft_roomcreate(t_args *args, t_vars *vars);
 
 #endif
