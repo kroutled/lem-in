@@ -6,7 +6,7 @@
 /*   By: kroutled <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 17:39:16 by kroutled          #+#    #+#             */
-/*   Updated: 2017/11/06 17:39:50 by kroutled         ###   ########.fr       */
+/*   Updated: 2017/11/09 16:51:18 by kroutled         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,17 @@ struct	s_args
 {
 	t_room		*rooms[100000];
 	char		*line;
-	char		**data;
-	char		**ndata;
+	char		**args;
 };
 
 struct	s_vars
 {
+	int		fd;
 	int		count;
 	int		start;
 	int		end;
 	int		numants;
-	int		i;
+	int		r_count;
 };
 
 #endif

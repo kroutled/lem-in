@@ -6,118 +6,115 @@
 /*   By: kroutled <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 17:39:06 by kroutled          #+#    #+#             */
-/*   Updated: 2017/11/06 17:44:25 by kroutled         ###   ########.fr       */
+/*   Updated: 2017/11/09 16:51:21 by kroutled         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 #include <stdio.h>
-/*
-int		ft_start(t_args *args, t_vars *vars)
+
+int		ft_arrlen(char **arr)
 {
-	if (ft_strstr(args->data[vars->count], "start"))
-	{
-		vars->count++;
-		room->start = 1;
-		room->name = ft_strdup(&args->data[vars->count][0]);
-		ft_putendl(room->name);
-	}
-	if (ft_strstr(args->data[vars->count], "end"))
-	{
-		vars->count++;
-		room->end = 1;
-		room->name = ft_strdup(&args->data[vars->count][0]);
-	}
-	return (0);
+	int		i;
+
+	i = 0;
+	while (arr[i])
+		i++;
+	return (i);
 }
 
-void	ft_checkroom_info(t_args *args, t_vars *vars)
+void	ft_roomcreate(t_args *args, t_vars *vars)
 {
-	while (args->data[vars->count])
+	if (ft_arrlen(args->args) > 3)
+		exit(0);
+	args->rooms[vars->r_count] = (t_room*)ft_memalloc(sizeof(t_room));
+	args->rooms[vars->r_count]->name = ft_strdup(args->args[0]);
+	if (vars->start == 1)
 	{
-		if (args->data[vars->count][0] == '#')
-		{
-			if (ft_strstr(args->data[vars->count], "start"))
-			{
-				vars->count++;
-
-			}
-		}
-		//1.getname
-		//2.start or end?
-		vars->count++;
+		args->rooms[vars->r_count]->start = 1;
+		vars->start = 0;
 	}
-}
-*/
-void	ft_setrooms(t_args *args, t_vars *vars)
-{
-	vars->count = 0;
-	vars->i = 0;
-	//t_checkroom_info(args, vars);
-	ft_putendl("hello 1");
-	while(args->rooms[vars->count])
+	if (vars->end == 1)
 	{
-		ft_putendl("hello 2");
-		//insert room info;ft_checkroom_info(args, vars);
-		while (args->data[vars->i])
-		{
-			ft_putendl("hello 3");
-			if (args->data[vars->i][0] == '#')
-			{
-				ft_putendl("hello 4");
-				if (ft_strstr(args->data[vars->i], "start"))
-				{
-					vars->i++;
-					args->rooms[vars->count]->name = args->data[vars->i];
-					ft_putendl(args->rooms[vars->count]->name);
-					ft_putendl("hello bitches");
-				}
-			}
-			//1.getname
-			//2.start or end?
-		}
-		vars->count++;
-	}
+		args->rooms[vars->r_count]->end = 1;
+		vars->end = 0;
+	}	
 }
 
-void	ft_numants(t_args *args, t_vars *vars)
+void	ft_startend(t_args *args, t_vars *vars)
 {
-	vars->count = 0;
-	while (args->data[vars->count])
+	if (ft_strstr(args->line, "start"))
+		vars->start = 1;	
+	if (ft_strstr(args->line, "end"))
+		vars->end = 1;
+}
+
+void	ft_frees(t_args *args)
+{
+	if (args->line != NULL)
 	{
-		if (ft_isdigit(args->data[vars->count][0]))
-		{
-			vars->numants = ft_atoi(args->data[vars->count]);
-			break;
-		}
-		vars->count++;
+		free(args->line);
+		args->line = NULL;
+	}
+	if (args->args != NULL)
+	{
+		ft_free2d(args->args);
+		args->args = NULL;
 	}
 }
 
 void	ft_anthill(t_args *args, t_vars *vars)
 {
-	ft_numants(args, vars);
-	ft_setrooms(args, vars);
+	vars->count = 0;
+	while (get_next_line(vars->fd, &args->line) != 0)
+	{
+		if (vars->count < 1 && ft_isdigit((args->line[0])))
+		{
+			vars->numants = ft_atoi(args->line);
+			vars->count++;
+		}
+		else if (vars->count > 0)
+		{
+			if (args->line[0] == '#')
+			{
+				ft_startend(args, vars);
+			}
+			else
+			{
+				args->args = ft_strsplit(args->line, ' ');
+				if (args->args[0] == '\0')
+					exit(0);
+				else if(args->args[1] == NULL)
+				{
+					ft_putendl("links");
+				}
+				else
+				{
+					ft_roomcreate(args, vars);
+				}
+			}
+			
+		}
+		ft_frees(args);
+	}
 }
 
 int main(int ac, char **av)
 {
-	int 	fd;
-	t_args	*args;
-	t_vars	*vars;
+	t_args	args;
+	t_vars	vars;
 
-	args = (t_args*)ft_memalloc(sizeof(t_args));
-	vars = (t_vars*)ft_memalloc(sizeof(t_vars));
+	ft_bzero(&args, sizeof(t_args));
+	ft_bzero(&vars, sizeof(t_vars));
 	if (ac != 2)
 	{
 		ft_putendl("Usage: ./lem-in [file]");
 	}
 	else
 	{
-		fd = open(av[1], O_RDONLY);
-		args->line = ft_readfile(fd);
-		args->data = ft_strsplit(args->line, '\n');
-		ft_anthill(args, vars);
+		vars.fd = open(av[1], O_RDONLY);
+		ft_anthill(&args, &vars);
+		close(vars.fd);
 	}
 	return (0);	
 }
