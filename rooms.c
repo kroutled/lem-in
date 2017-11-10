@@ -6,7 +6,7 @@
 /*   By: kroutled <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:48:39 by kroutled          #+#    #+#             */
-/*   Updated: 2017/11/09 17:52:09 by kroutled         ###   ########.fr       */
+/*   Updated: 2017/11/10 14:37:51 by kroutled         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_roomcreate(t_args *args, t_vars *vars)
 		exit(0);
 	args->rooms[vars->r_count] = (t_room*)ft_memalloc(sizeof(t_room));
 	args->rooms[vars->r_count]->name = ft_strdup(args->args[0]);
-	ft_putendl(args->rooms[vars->r_count]->name);
 	if (vars->start == 1)
 	{
 		args->rooms[vars->r_count]->start = 1;

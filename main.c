@@ -6,23 +6,54 @@
 /*   By: kroutled <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 17:39:06 by kroutled          #+#    #+#             */
-/*   Updated: 2017/11/09 17:50:07 by kroutled         ###   ########.fr       */
+/*   Updated: 2017/11/10 15:11:58 by kroutled         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 #include <stdio.h>
 
-/*
+
 void	ft_tunnels(t_args *args, t_vars *vars)
 {
+	int		cnt;
+	int		cnt2;
 
+	cnt = 0;
+	cnt2 = 0;
+	(void)vars;
+	args->links = ft_strsplit(args->args[0], '-');
+	if (ft_arrlen(args->links) > 2)
+		exit(0);
+	else
+	{
+		vars->f_rcnt = 0;
+		while(ft_strcmp(args->rooms[vars->f_rcnt]->name, args->links[0]) != 0)
+			vars->f_rcnt++;
+		vars->s_rcnt = 0;
+		while(ft_strcmp(args->rooms[vars->s_rcnt]->name, args->links[1]) != 0)
+			vars->s_rcnt++;
+		while (args->rooms[vars->f_rcnt]->roomlinks[cnt] != NULL)
+			cnt++;
+		while (args->rooms[vars->s_rcnt]->roomlinks[cnt2] != NULL)
+			cnt2++;
+		args->rooms[vars->f_rcnt]->roomlinks[cnt] = args->rooms[vars->s_rcnt];
+		args->rooms[vars->s_rcnt]->roomlinks[cnt2] = args->rooms[vars->f_rcnt];
+	}
+/*	int	i;
+
+	i = 0;
+	while (args->rooms[0]->roomlinks[i])
+	{
+		ft_putendl(args->rooms[0]->roomlinks[i]->name);
+		i++;
+	}*/
 }
-*/
+
 void	ft_startend(t_args *args, t_vars *vars)
 {
 	if (ft_strstr(args->line, "start"))
-		vars->start = 1;	
+		vars->start = 1;
 	if (ft_strstr(args->line, "end"))
 		vars->end = 1;
 }
@@ -39,16 +70,15 @@ void	ft_frees(t_args *args)
 		ft_free2d(args->args);
 		args->args = NULL;
 	}
+	if (args->links != NULL)
+	{
+		ft_free2d(args->links);
+		args->links = NULL;
+	}
 }
 
 void	ft_anthill(t_args *args, t_vars *vars)
 {
-	vars->count = 0;
-	if (vars->fd == -1)
-	{
-		ft_putendl("Error");
-		exit(0);
-	}
 	while (get_next_line(vars->fd, &args->line) != 0)
 	{
 		if (vars->count < 1 && ft_isdigit((args->line[0])))
@@ -59,9 +89,7 @@ void	ft_anthill(t_args *args, t_vars *vars)
 		else if (vars->count > 0)
 		{
 			if (args->line[0] == '#')
-			{
 				ft_startend(args, vars);
-			}
 			else
 			{
 				args->args = ft_strsplit(args->line, ' ');
@@ -69,20 +97,17 @@ void	ft_anthill(t_args *args, t_vars *vars)
 					exit(0);
 				else if(args->args[1] == NULL)
 				{
-				//	ft_tunnels("links");
+					ft_tunnels(args, vars);
 				}
 				else
-				{
 					ft_roomcreate(args, vars);
-				}
 			}
-			
 		}
 		ft_frees(args);
 	}
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_args	args;
 	t_vars	vars;
@@ -96,8 +121,13 @@ int main(int ac, char **av)
 	else
 	{
 		vars.fd = open(av[1], O_RDONLY);
+		if (vars.fd == -1)
+		{
+			ft_putendl("File does not exist");
+			exit(0);
+		}
 		ft_anthill(&args, &vars);
 		close(vars.fd);
 	}
-	return (0);	
+	return (0);
 }
