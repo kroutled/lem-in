@@ -6,7 +6,7 @@
 /*   By: kroutled <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 17:39:16 by kroutled          #+#    #+#             */
-/*   Updated: 2017/11/10 12:59:55 by kroutled         ###   ########.fr       */
+/*   Updated: 2017/11/13 13:08:33 by kroutled         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@
 #include "./libft/libft.h"
 #include <fcntl.h>
 
-typedef struct	s_room t_room;
-typedef struct	s_args t_args;
-typedef struct	s_vars t_vars;
+typedef struct	s_room	t_room;
+typedef struct	s_args	t_args;
+typedef struct	s_vars	t_vars;
+typedef struct	s_paths	t_paths;
+typedef struct	s_ants	t_ants;
 
 struct s_room
 {
@@ -49,6 +51,19 @@ struct	s_vars
 	int		s_rcnt;
 };
 
+struct	s_paths
+{
+	char			*data;
+	struct s_paths	*next;
+};
+
+struct	s_ants
+{
+	int		ant_name;
+	char	*room;
+};
+
 void	ft_roomcreate(t_args *args, t_vars *vars);
+void	ft_setpaths();
 
 #endif

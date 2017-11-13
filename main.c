@@ -6,13 +6,27 @@
 /*   By: kroutled <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 17:39:06 by kroutled          #+#    #+#             */
-/*   Updated: 2017/11/10 15:11:58 by kroutled         ###   ########.fr       */
+/*   Updated: 2017/11/10 17:00:39 by kroutled         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 #include <stdio.h>
 
+void	ft_startend_checkroom(t_args *args, t_vars *vars)
+{
+	vars->start = 0;
+	vars->end = 0;
+	while (args->rooms[vars->start]->start == 0)
+	{
+		vars->start++;
+	}
+	while (args->rooms[vars->end]->end == 0)
+	{
+		vars->end++;
+	}
+	args->rooms[vars->start]->full = vars->numants;
+}
 
 void	ft_tunnels(t_args *args, t_vars *vars)
 {
@@ -28,10 +42,10 @@ void	ft_tunnels(t_args *args, t_vars *vars)
 	else
 	{
 		vars->f_rcnt = 0;
-		while(ft_strcmp(args->rooms[vars->f_rcnt]->name, args->links[0]) != 0)
+		while (ft_strcmp(args->rooms[vars->f_rcnt]->name, args->links[0]) != 0)
 			vars->f_rcnt++;
 		vars->s_rcnt = 0;
-		while(ft_strcmp(args->rooms[vars->s_rcnt]->name, args->links[1]) != 0)
+		while (ft_strcmp(args->rooms[vars->s_rcnt]->name, args->links[1]) != 0)
 			vars->s_rcnt++;
 		while (args->rooms[vars->f_rcnt]->roomlinks[cnt] != NULL)
 			cnt++;
@@ -40,14 +54,6 @@ void	ft_tunnels(t_args *args, t_vars *vars)
 		args->rooms[vars->f_rcnt]->roomlinks[cnt] = args->rooms[vars->s_rcnt];
 		args->rooms[vars->s_rcnt]->roomlinks[cnt2] = args->rooms[vars->f_rcnt];
 	}
-/*	int	i;
-
-	i = 0;
-	while (args->rooms[0]->roomlinks[i])
-	{
-		ft_putendl(args->rooms[0]->roomlinks[i]->name);
-		i++;
-	}*/
 }
 
 void	ft_startend(t_args *args, t_vars *vars)
@@ -95,16 +101,15 @@ void	ft_anthill(t_args *args, t_vars *vars)
 				args->args = ft_strsplit(args->line, ' ');
 				if (args->args[0] == '\0')
 					exit(0);
-				else if(args->args[1] == NULL)
-				{
+				else if (args->args[1] == NULL)
 					ft_tunnels(args, vars);
-				}
 				else
 					ft_roomcreate(args, vars);
 			}
 		}
 		ft_frees(args);
 	}
+	ft_startend_checkroom(args, vars);
 }
 
 int	main(int ac, char **av)
