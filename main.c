@@ -109,7 +109,6 @@ void	ft_anthill(t_args *args, t_vars *vars)
 		}
 		ft_frees(args);
 	}
-	ft_startend_checkroom(args, vars);
 }
 
 int	main(int ac, char **av)
@@ -132,6 +131,7 @@ int	main(int ac, char **av)
 			exit(0);
 		}
 		ft_anthill(&args, &vars);
+		ft_startend_checkroom(&args, &vars);
 		close(vars.fd);
 	}
 	return (0);
