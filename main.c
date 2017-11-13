@@ -13,6 +13,22 @@
 #include "lemin.h"
 #include <stdio.h>
 
+void	ft_ant_setup(t_args *args, t_vars *vars)
+{
+	int	i;
+
+	i = 0;
+	args->ants = (t_ants **)ft_memalloc(sizeof(t_ants*) * (vars->numants + 1));
+	while(i < vars->numants)
+	{
+		args->ants[i] = (t_ants*)ft_memalloc(sizeof(t_ants));
+		args->ants[i]->ant_name = ft_itoa(i + 1);
+		args->ants[i]->room = args->rooms[vars->start]->name;
+		args->ants[i]->fin = 0;
+		i++;
+	}
+}
+
 void	ft_startend_checkroom(t_args *args, t_vars *vars)
 {
 	vars->start = 0;
@@ -132,6 +148,7 @@ int	main(int ac, char **av)
 		}
 		ft_anthill(&args, &vars);
 		ft_startend_checkroom(&args, &vars);
+		ft_ant_setup(&args, &vars);
 		close(vars.fd);
 	}
 	return (0);

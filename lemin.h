@@ -34,6 +34,7 @@ struct s_room
 struct	s_args
 {
 	t_room		*rooms[100000];
+	t_ants		**ants;
 	char		*line;
 	char		**args;
 	char		**links;
@@ -59,8 +60,10 @@ struct	s_paths
 
 struct	s_ants
 {
-	int		ant_name;
+	char	*ant_name;
 	char	*room;
+	int		fin;
+	int		index;
 };
 
 void	ft_roomcreate(t_args *args, t_vars *vars);
