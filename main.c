@@ -44,59 +44,12 @@ void	ft_startend_checkroom(t_args *args, t_vars *vars)
 	args->rooms[vars->start]->full = vars->numants;
 }
 
-void	ft_tunnels(t_args *args, t_vars *vars)
-{
-	int		cnt;
-	int		cnt2;
-
-	cnt = 0;
-	cnt2 = 0;
-	(void)vars;
-	args->links = ft_strsplit(args->args[0], '-');
-	if (ft_arrlen(args->links) > 2)
-		exit(0);
-	else
-	{
-		vars->f_rcnt = 0;
-		while (ft_strcmp(args->rooms[vars->f_rcnt]->name, args->links[0]) != 0)
-			vars->f_rcnt++;
-		vars->s_rcnt = 0;
-		while (ft_strcmp(args->rooms[vars->s_rcnt]->name, args->links[1]) != 0)
-			vars->s_rcnt++;
-		while (args->rooms[vars->f_rcnt]->roomlinks[cnt] != NULL)
-			cnt++;
-		while (args->rooms[vars->s_rcnt]->roomlinks[cnt2] != NULL)
-			cnt2++;
-		args->rooms[vars->f_rcnt]->roomlinks[cnt] = args->rooms[vars->s_rcnt];
-		args->rooms[vars->s_rcnt]->roomlinks[cnt2] = args->rooms[vars->f_rcnt];
-	}
-}
-
 void	ft_startend(t_args *args, t_vars *vars)
 {
 	if (ft_strstr(args->line, "start"))
 		vars->start = 1;
 	if (ft_strstr(args->line, "end"))
 		vars->end = 1;
-}
-
-void	ft_frees(t_args *args)
-{
-	if (args->line != NULL)
-	{
-		free(args->line);
-		args->line = NULL;
-	}
-	if (args->args != NULL)
-	{
-		ft_free2d(args->args);
-		args->args = NULL;
-	}
-	if (args->links != NULL)
-	{
-		ft_free2d(args->links);
-		args->links = NULL;
-	}
 }
 
 void	ft_anthill(t_args *args, t_vars *vars)

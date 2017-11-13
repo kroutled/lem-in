@@ -6,7 +6,8 @@ INC = -L libft -lft
 
 SRC = main.c	\
 	  rooms.c	\
-	  paths.c	\
+	  tunnels.c	\
+	  frees.c	\
 
 all: $(NAME)
 

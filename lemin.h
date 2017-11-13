@@ -67,6 +67,7 @@ struct	s_ants
 };
 
 void	ft_roomcreate(t_args *args, t_vars *vars);
-void	ft_setpaths();
+void	ft_tunnels(t_args *args, t_vars *vars);
+void	ft_frees(t_args *args);
 
 #endif
