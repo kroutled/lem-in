@@ -70,6 +70,9 @@ struct	s_ants
 
 void	ft_roomcreate(t_args *args, t_vars *vars);
 void	ft_tunnels(t_args *args, t_vars *vars);
+void	ft_createfile(t_paths *head, int fd);
+void	ft_find_routes(int fd, t_paths *head, t_paths *paths, t_room *roomlinks);
+void	ft_checktunnels(t_args *args, t_vars *vars);
 void	ft_frees(t_args *args);
 
 #endif
