@@ -65,14 +65,17 @@ void	ft_checktunnels(t_args *args, t_vars *vars)
 	int		fd;
 	int		i;
 
+	i = 0;
 	list = (t_paths*)ft_memalloc(sizeof(t_paths));
 	fd = open("links", O_TRUNC | O_WRONLY);
 	ft_find_routes(fd, list, list, args->rooms[vars->count]);
 	close(fd);
 	fd = open("links", O_RDONLY);
-	args->paths = (char***)ft_memalloc(sizeof(char**));
+	args->paths = (char***)ft_memalloc(sizeof(char**) * 10000);
 	while (get_next_line(fd, &args->line))
 	{
-		args->paths = ft_strsplit(args->line, ' ');
+		args->paths[i] = ft_strsplit(args->line, ' ');
+		free(args->line);
+		i++;
 	}
 }
