@@ -19,7 +19,7 @@
 typedef struct	s_room	t_room;
 typedef struct	s_args	t_args;
 typedef struct	s_vars	t_vars;
-typedef struct	s_paths	t_paths;
+typedef struct	s_list	t_list;
 typedef struct	s_ants	t_ants;
 
 struct s_room
@@ -27,7 +27,8 @@ struct s_room
 	char		*name;
 	int			start;
 	int			end;
-	int			full;
+	 int			full;
+	 int			visited;
 	t_room		*roomlinks[100000];
 };
 
@@ -52,10 +53,10 @@ struct	s_vars
 	int		s_rcnt;
 };
 
-struct	s_paths
-{
+struct	s_list
+{	
 	char			*data;
-	struct s_paths	*next;
+	struct s_list	*next;
 };
 
 struct	s_ants

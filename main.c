@@ -70,8 +70,8 @@ void	ft_anthill(t_args *args, t_vars *vars)
 				args->args = ft_strsplit(args->line, ' ');
 				if (args->args[0] == '\0')
 					exit(0);
-				else if (args->args[1] == NULL)
-					ft_tunnels(args, vars);
+				 else if (args->args[1] == NULL)
+				 	ft_tunnels(args, vars);
 				else
 					ft_roomcreate(args, vars);
 			}
