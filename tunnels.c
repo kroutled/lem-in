@@ -41,30 +41,38 @@ void	ft_tunnels(t_args *args, t_vars *vars)
 }
 
 //saves the routes to a file to be read into 3d arrs
-void	ft_createfile(t_list *head, int fd)
+void	ft_createfile(t_paths *head, int fd)
 {
 	while (head && head->data)
 	{
 		write(fd, head->data, ft_strlen(head->data));
-		write(fd, ' ', 1);
+		write(fd, " ", 1);
 		head = head->next;
 	}
-	ft_putchar('\n');
+	write(fd, "\n", 1);
 }
-
+/*
 //recursive bit
-void	ft_find_routes(int fd, t_list *head, t_list *paths, t_room *roomlinks)
+void	ft_find_routes(int fd, t_paths *head, t_paths *paths, t_room *roomlinks)
 {
 
 }
-
+*/
 //calls recurive bit and saves to file, then goes on to read file into arrs
 void	ft_checktunnels(t_args *args, t_vars *vars)
 {
-	t_list	*list;
+	t_paths	*list;
 	int		fd;
 	int		i;
 
-	list = (char***)ft_memalloc(sizeof(char**));
-fd = open("");
+	list = (t_paths*)ft_memalloc(sizeof(t_paths));
+	fd = open("links", O_TRUNC | O_WRONLY);
+	ft_find_routes(fd, list, list, args->rooms[vars->count]);
+	close(fd);
+	fd = open("links", O_RDONLY);
+	args->paths = (char***)ft_memalloc(sizeof(char**));
+	while (get_next_line(fd, &args->line))
+	{
+		args->paths = ft_strsplit(args->line, ' ');
+	}
 }

@@ -19,7 +19,7 @@
 typedef struct	s_room	t_room;
 typedef struct	s_args	t_args;
 typedef struct	s_vars	t_vars;
-typedef struct	s_list	t_list;
+typedef struct	s_paths	t_paths;
 typedef struct	s_ants	t_ants;
 
 struct s_room
@@ -39,6 +39,7 @@ struct	s_args
 	char		*line;
 	char		**args;
 	char		**links;
+	char		***paths;
 };
 
 struct	s_vars
@@ -53,10 +54,10 @@ struct	s_vars
 	int		s_rcnt;
 };
 
-struct	s_list
+struct	s_paths
 {	
-	char			*data;
-	struct s_list	*next;
+	char	*data;
+	t_paths	*next;
 };
 
 struct	s_ants
