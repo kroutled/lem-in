@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   paths.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kroutled <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/13 12:55:42 by kroutled          #+#    #+#             */
-/*   Updated: 2017/11/13 13:08:42 by kroutled         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "lemin.h"
 
 void	ft_tunnels(t_args *args, t_vars *vars)
@@ -51,13 +39,36 @@ void	ft_createfile(t_paths *head, int fd)
 	}
 	write(fd, "\n", 1);
 }
-/*
-//recursive bit
-void	ft_find_routes(int fd, t_paths *head, t_paths *paths, t_room *roomlinks)
-{
 
+//recursive bit
+void	ft_find_routes(int fd, t_paths *head, t_paths *list, t_room *sroom)
+{
+	t_paths		*next;
+	int			i;
+
+	list->next = (t_paths*)ft_memalloc(sizeof(t_paths));
+	i = 0;
+	list->data = sroom->name;
+	sroom->visited = 1;
+	next = list->next;
+	if (sroom->end == 1)
+	{
+		ft_createfile(head, fd);
+	}
+	while (sroom->roomlinks[i] && sroom->end == 0)
+		{
+			if (sroom->roomlinks[i]->visited == 0)
+			{
+				ft_find_routes(fd, head, next, sroom->roomlinks[i]);
+			}
+			i++;
+		}
+	list->data = NULL;
+	free(next);
+	list = NULL;
+	sroom->visited = 0;
 }
-*/
+
 //calls recurive bit and saves to file, then goes on to read file into arrs
 void	ft_checktunnels(t_args *args, t_vars *vars)
 {
@@ -67,8 +78,10 @@ void	ft_checktunnels(t_args *args, t_vars *vars)
 
 	i = 0;
 	list = (t_paths*)ft_memalloc(sizeof(t_paths));
-	fd = open("links", O_TRUNC | O_WRONLY);
-	ft_find_routes(fd, list, list, args->rooms[vars->count]);
+	fd = open("links", O_TRUNC | O_RDWR | O_CREAT, 0666);
+
+	ft_find_routes(fd, list, list, args->rooms[vars->start]);
+	free(list);
 	close(fd);
 	fd = open("links", O_RDONLY);
 	args->paths = (char***)ft_memalloc(sizeof(char**) * 10000);
@@ -78,4 +91,5 @@ void	ft_checktunnels(t_args *args, t_vars *vars)
 		free(args->line);
 		i++;
 	}
+	close(fd);
 }
