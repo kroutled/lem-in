@@ -8,6 +8,8 @@ SRC = main.c	\
 	  rooms.c	\
 	  tunnels.c	\
 	  frees.c	\
+	  looping.c	\
+	  moving.c	\
 
 all: $(NAME)
 

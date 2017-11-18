@@ -103,6 +103,10 @@ int	main(int ac, char **av)
 		ft_startend_checkroom(&args, &vars);
 		ft_ant_setup(&args, &vars);
 		ft_checktunnels(&args, &vars);
+		while (args.rooms[vars.end]->full < vars.numants)
+		{
+			ft_loopants(&args, &vars);
+		}
 		close(vars.fd);
 	}
 	return (0);
