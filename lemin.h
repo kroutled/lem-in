@@ -82,7 +82,7 @@ void	ft_loopants(t_args *args, t_vars *vars);
 void	ft_looppaths(t_args *args, t_vars *vars);
 void	ft_looprooms(t_args *args, t_vars *vars);
 void	ft_can_move(t_args *args, t_vars *vars, int *loop);
-void	ft_ants_from(t_args *args, t_vars *vars);
+int		ft_ants_from(t_args *args, t_vars *vars);
 void	ft_ants_to(t_args *args, t_vars *vars, int *loop);
 void	ft_frees(t_args *args);
 
