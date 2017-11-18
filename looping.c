@@ -7,7 +7,16 @@ void    ft_looprooms(t_args *args, t_vars *vars)
     loop = 0;
     while (args->rooms[vars->ri])
     {
-        
+        if ((ft_strcmp(args->paths[vars->pi]
+            [args->ants[vars->ai]->index], args->rooms[vars->ri]->name) == 0) 
+            && (ft_strcmp(args->paths[vars->pi]
+            [args->ants[vars->ai]->index - 1], args->ants[vars->ai]->room) == 0))
+        {
+            ft_can_move(args, vars, loop);
+            if (loop == 1)
+                break ;
+            }
+            vars->ri++;
     }
 }
 
