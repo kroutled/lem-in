@@ -88,30 +88,21 @@ int	main(int ac, char **av)
 
 	ft_bzero(&args, sizeof(t_args));
 	ft_bzero(&vars, sizeof(t_vars));
-	if (ac != 2)
-		ft_putendl("Usage: ./lem-in [file]");
-	else
+	ft_readmap(av);
+	ft_anthill(&args, &vars);
+	if (vars.count == 0)
+		exit(0);
+	ft_startend_checkroom(&args, &vars);
+	ft_ant_setup(&args, &vars);
+	ft_checktunnels(&args, &vars);
+	while (args.rooms[vars.end]->full < vars.numants)
 	{
-		vars.fd = open(av[1], O_RDONLY);
-		if (vars.fd == -1)
-		{
-			ft_putendl("File does not exist");
-			exit(0);
-		}
-		ft_anthill(&args, &vars);
-		ft_startend_checkroom(&args, &vars);
-		ft_ant_setup(&args, &vars);
-		ft_checktunnels(&args, &vars);
-		while (args.rooms[vars.end]->full < vars.numants)
-		{
-			vars.ai = 0;
-			ft_loop_ants(&args, &vars);
-			ft_putstr("\n");
-		}
-		ft_free_rooms(&args);
-		ft_free_paths(&args);
-		ft_free_ants(&args);
-		close(vars.fd);
+		vars.ai = 0;
+		ft_loop_ants(&args, &vars);
+		ft_putstr("\n");
 	}
+	ft_free_rooms(&args);
+	ft_free_paths(&args);
+	ft_free_ants(&args);
 	return (0);
 }
