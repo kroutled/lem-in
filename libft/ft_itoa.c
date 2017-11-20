@@ -1,61 +1,72 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kroutled <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/21 14:14:28 by kroutled          #+#    #+#             */
-/*   Updated: 2017/07/27 11:17:14 by kroutled         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include <stdio.h>
 #include "libft.h"
 
-static int	numnbr(int c)
+static int		ft_size(int n)
 {
-	int		i;
+	int i;
 
-	i = 1;
-	if (c < 0)
-	{
-		c = -c;
+	i = 0;
+	if (n == 0)
 		i++;
-	}
-	while (c >= 10)
+	while (n != 0)
 	{
-		c = c / 10;
+		n = n / 10;
 		i++;
 	}
 	return (i);
 }
 
-char		*ft_itoa(int n)
+static char		*ft_more(int n)
 {
-	char	*arr;
-	int		count;
-	int		sign;
+	char	*ptr;
+	int		size;
 
-	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
-	sign = 1;
-	count = numnbr(n);
-	arr = (char *)malloc(sizeof(char) * (count + 1));
-	if (arr == NULL)
+	size = ft_size(n);
+	if ((ptr = (char *)malloc(size + 1)) == NULL)
 		return (NULL);
-	if (n < 0)
+	ptr += size;
+	*ptr-- = '\0';
+	while (n >= 0)
 	{
-		n = -n;
-		sign = (-1);
-	}
-	arr[count] = '\0';
-	while (count-- >= 0)
-	{
-		arr[count] = n % 10 + '0';
+		*ptr-- = '0' + (n % 10);
 		n = n / 10;
+		if (n == 0)
+			break ;
 	}
-	if (sign == -1)
-		arr[0] = '-';
-	return (arr);
+	return (++ptr);
+}
+
+static char		*ft_less(int n)
+{
+	char	*ptr;
+	int		size;
+
+	size = ft_size(n);
+	if ((ptr = (char *)malloc(size + 2)) == NULL)
+		return (NULL);
+	ptr += size + 1;
+	*ptr-- = '\0';
+	while (n != 0)
+	{
+		*ptr-- = '0' + (n % 10) * -1;
+		n = n / 10;
+		if (n == 0)
+			break ;
+	}
+	*ptr = '-';
+	return (ptr);
+}
+
+char			*ft_itoa(int n)
+{
+	char	*ptr;
+
+	if (n >= 0)
+	{
+		ptr = ft_more(n);
+	}
+	else
+	{
+		ptr = ft_less(n);
+	}
+	return (ptr);
 }

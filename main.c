@@ -89,9 +89,7 @@ int	main(int ac, char **av)
 	ft_bzero(&args, sizeof(t_args));
 	ft_bzero(&vars, sizeof(t_vars));
 	if (ac != 2)
-	{
 		ft_putendl("Usage: ./lem-in [file]");
-	}
 	else
 	{
 		vars.fd = open(av[1], O_RDONLY);
