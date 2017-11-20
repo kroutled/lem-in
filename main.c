@@ -25,6 +25,7 @@ void	ft_ant_setup(t_args *args, t_vars *vars)
 		args->ants[i]->ant_name = ft_itoa(i + 1);
 		args->ants[i]->room = args->rooms[vars->start]->name;
 		args->ants[i]->fin = 0;
+		args->ants[i]->index = 1;
 		i++;
 	}
 }
@@ -105,8 +106,13 @@ int	main(int ac, char **av)
 		ft_checktunnels(&args, &vars);
 		while (args.rooms[vars.end]->full < vars.numants)
 		{
-			ft_loopants(&args, &vars);
+			vars.ai = 0;
+			ft_loop_ants(&args, &vars);
+			ft_putstr("\n");
 		}
+		ft_free_paths(&args);
+		ft_free_rooms(&args);
+		ft_free_ants(&args);
 		close(vars.fd);
 	}
 	return (0);

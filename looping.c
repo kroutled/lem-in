@@ -1,6 +1,6 @@
 #include "lemin.h"
-
-void    ft_looprooms(t_args *args, t_vars *vars)
+#include <stdio.h>
+void    ft_loop_rooms(t_args *args, t_vars *vars)
 {
     int     loop;
 
@@ -15,19 +15,19 @@ void    ft_looprooms(t_args *args, t_vars *vars)
             ft_can_move(args, vars, &loop);
             if (loop == 1)
                 break ;
-            }
-            vars->ri++;
+        }
+        vars->ri++;
     }
 }
 
-void    ft_looppaths(t_args *args, t_vars *vars)
+void    ft_loop_paths(t_args *args, t_vars *vars)
 {
     while (args->paths[vars->pi])
     {
         vars->ri = 0;
         if (args->ants[vars->ai]->index < ft_arrlen(args->paths[vars->pi]))
         {
-            ft_looprooms(args, vars);
+            ft_loop_rooms(args, vars);
         }
         if (vars->move == 1)
         {
@@ -38,14 +38,14 @@ void    ft_looppaths(t_args *args, t_vars *vars)
     }
 }
 
-void    ft_loopants(t_args *args, t_vars *vars)
+void    ft_loop_ants(t_args *args, t_vars *vars)
 {
     while (args->ants[vars->ai])
     {
         vars->pi = 0;
         if (args->ants[vars->ai]->fin != 1)
         {
-            ft_looppaths(args, vars);
+            ft_loop_paths(args, vars);
         }
         vars->ai++;
     }

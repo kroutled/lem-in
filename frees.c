@@ -19,7 +19,49 @@ void	ft_frees(t_args *args)
 	}
 }
 
-void    ft_free_ants()
+void	ft_free_paths(t_args *args)
 {
+	int		i;
+	int		j;
 
+	i = 0;
+	j = 0;
+	while (args->paths[i])
+	{
+		j = 0;
+		while (args->paths[i][j])
+		{
+			free(args->paths[i][j]);
+			j++;
+		}
+		free(args->paths[i]);
+		i++;
+	}
+	free(args->paths);
+}
+
+void	ft_free_rooms(t_args *args)
+{
+	int		i;
+
+	i = 0;
+	while (args->rooms[i])
+	{
+		free(args->rooms[i]->name);
+		free(args->rooms[i]);
+	}
+}
+
+void    ft_free_ants(t_args *args)
+{
+	int		i;
+
+	i = 0;
+	while (args->ants[i])
+	{
+		free(args->ants[i]->ant_name);
+		free(args->ants[i]);
+		i++;
+	}
+	free(args->ants);
 }

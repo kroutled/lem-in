@@ -93,3 +93,8 @@ void	ft_checktunnels(t_args *args, t_vars *vars)
 	}
 	close(fd);
 }
+
+void	ft_sortpaths()
+{
+	
+}

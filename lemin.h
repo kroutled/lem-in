@@ -78,12 +78,15 @@ void	ft_tunnels(t_args *args, t_vars *vars);
 void	ft_createfile(t_paths *head, int fd);
 void	ft_find_routes(int fd, t_paths *head, t_paths *list, t_room *sroom);
 void	ft_checktunnels(t_args *args, t_vars *vars);
-void	ft_loopants(t_args *args, t_vars *vars);
-void	ft_looppaths(t_args *args, t_vars *vars);
-void	ft_looprooms(t_args *args, t_vars *vars);
+void	ft_loop_ants(t_args *args, t_vars *vars);
+void	ft_loop_paths(t_args *args, t_vars *vars);
+void	ft_loop_rooms(t_args *args, t_vars *vars);
 void	ft_can_move(t_args *args, t_vars *vars, int *loop);
 int		ft_ants_from(t_args *args, t_vars *vars);
 void	ft_ants_to(t_args *args, t_vars *vars, int *loop);
 void	ft_frees(t_args *args);
+void	ft_free_paths(t_args *args);
+void	ft_free_rooms(t_args *args);
+void	ft_free_ants(t_args *args);
 
 #endif
