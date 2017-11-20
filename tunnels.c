@@ -91,10 +91,31 @@ void	ft_checktunnels(t_args *args, t_vars *vars)
 		free(args->line);
 		i++;
 	}
+	ft_sortpaths(args->paths);
 	close(fd);
 }
 
-void	ft_sortpaths()
+void	ft_sortpaths(char ***arr)
 {
-	
+	char	**ptr;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (arr[i])
+	{
+		j = i + 1;
+		while (arr[j])
+		{
+			if (ft_arrlen(arr[i]) > ft_arrlen(arr[j]))
+			{
+				ptr = arr[i];
+				arr[i] = arr[j];
+				arr[j] = ptr;
+			}
+			j++;
+		}
+		i++;
+	}
 }

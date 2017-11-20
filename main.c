@@ -110,8 +110,8 @@ int	main(int ac, char **av)
 			ft_loop_ants(&args, &vars);
 			ft_putstr("\n");
 		}
-		ft_free_paths(&args);
 		ft_free_rooms(&args);
+		ft_free_paths(&args);
 		ft_free_ants(&args);
 		close(vars.fd);
 	}

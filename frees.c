@@ -49,6 +49,7 @@ void	ft_free_rooms(t_args *args)
 	{
 		free(args->rooms[i]->name);
 		free(args->rooms[i]);
+		i++;
 	}
 }
 

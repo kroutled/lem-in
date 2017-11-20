@@ -84,6 +84,7 @@ void	ft_loop_rooms(t_args *args, t_vars *vars);
 void	ft_can_move(t_args *args, t_vars *vars, int *loop);
 int		ft_ants_from(t_args *args, t_vars *vars);
 void	ft_ants_to(t_args *args, t_vars *vars, int *loop);
+void	ft_sortpaths(char ***arr);
 void	ft_frees(t_args *args);
 void	ft_free_paths(t_args *args);
 void	ft_free_rooms(t_args *args);
