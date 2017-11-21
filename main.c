@@ -57,6 +57,7 @@ void	ft_anthill(t_args *args, t_vars *vars)
 {
 	while (get_next_line(vars->fd, &args->line) != 0)
 	{
+		ft_putendl(args->line);
 		if (vars->count < 1 && ft_isdigit((args->line[0])))
 		{
 			vars->numants = ft_atoi(args->line);
@@ -79,16 +80,16 @@ void	ft_anthill(t_args *args, t_vars *vars)
 		}
 		ft_frees(args);
 	}
+	ft_putstr("\n");
 }
 
-int	main(int ac, char **av)
+int	main(void)
 {
 	t_args	args;
 	t_vars	vars;
 
 	ft_bzero(&args, sizeof(t_args));
 	ft_bzero(&vars, sizeof(t_vars));
-	ft_readmap(av);
 	ft_anthill(&args, &vars);
 	if (vars.count == 0)
 		exit(0);
