@@ -6,12 +6,11 @@
 /*   By: kroutled <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 17:39:06 by kroutled          #+#    #+#             */
-/*   Updated: 2017/11/10 17:00:39 by kroutled         ###   ########.fr       */
+/*   Updated: 2017/11/21 13:29:29 by kroutled         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
-#include <stdio.h>
 
 void	ft_ant_setup(t_args *args, t_vars *vars)
 {
@@ -19,7 +18,7 @@ void	ft_ant_setup(t_args *args, t_vars *vars)
 
 	i = 0;
 	args->ants = (t_ants **)ft_memalloc(sizeof(t_ants*) * (vars->numants + 1));
-	while(i < vars->numants)
+	while (i < vars->numants)
 	{
 		args->ants[i] = (t_ants*)ft_memalloc(sizeof(t_ants));
 		args->ants[i]->ant_name = ft_itoa(i + 1);
@@ -55,12 +54,14 @@ void	ft_startend(t_args *args, t_vars *vars)
 
 void	ft_anthill(t_args *args, t_vars *vars)
 {
-	while (get_next_line(vars->fd, &args->line) != 0)
+	while (get_next_line(0, &args->line) != 0)
 	{
 		ft_putendl(args->line);
 		if (vars->count < 1 && ft_isdigit((args->line[0])))
 		{
 			vars->numants = ft_atoi(args->line);
+			if (vars->numants == 0)
+				ft_error();
 			vars->count++;
 		}
 		else if (vars->count > 0)
@@ -71,9 +72,9 @@ void	ft_anthill(t_args *args, t_vars *vars)
 			{
 				args->args = ft_strsplit(args->line, ' ');
 				if (args->args[0] == '\0')
-					exit(0);
-				 else if (args->args[1] == NULL)
-				 	ft_tunnels(args, vars);
+					ft_error();
+				else if (args->args[1] == NULL)
+					ft_tunnels(args, vars);
 				else
 					ft_roomcreate(args, vars);
 			}
@@ -83,7 +84,7 @@ void	ft_anthill(t_args *args, t_vars *vars)
 	ft_putstr("\n");
 }
 
-int	main(void)
+int		main(void)
 {
 	t_args	args;
 	t_vars	vars;
@@ -92,10 +93,12 @@ int	main(void)
 	ft_bzero(&vars, sizeof(t_vars));
 	ft_anthill(&args, &vars);
 	if (vars.count == 0)
-		exit(0);
+		ft_error();
 	ft_startend_checkroom(&args, &vars);
 	ft_ant_setup(&args, &vars);
 	ft_checktunnels(&args, &vars);
+	if (!args.paths[0])
+		ft_error();
 	while (args.rooms[vars.end]->full < vars.numants)
 	{
 		vars.ai = 0;

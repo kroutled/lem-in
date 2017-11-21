@@ -6,23 +6,23 @@
 /*   By: kroutled <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 17:39:16 by kroutled          #+#    #+#             */
-/*   Updated: 2017/11/13 13:08:33 by kroutled         ###   ########.fr       */
+/*   Updated: 2017/11/21 13:12:29 by kroutled         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEMIN_H
 # define LEMIN_H
 
-#include "./libft/libft.h"
-#include <fcntl.h>
+# include "./libft/libft.h"
+# include <fcntl.h>
 
-typedef struct	s_room	t_room;
-typedef struct	s_args	t_args;
-typedef struct	s_vars	t_vars;
-typedef struct	s_paths	t_paths;
-typedef struct	s_ants	t_ants;
+typedef struct s_room	t_room;
+typedef struct s_args	t_args;
+typedef struct s_vars	t_vars;
+typedef struct s_paths	t_paths;
+typedef struct s_ants	t_ants;
 
-struct s_room
+struct	s_room
 {
 	char		*name;
 	int			start;
@@ -60,7 +60,7 @@ struct	s_vars
 };
 
 struct	s_paths
-{	
+{
 	char	*data;
 	t_paths	*next;
 };
@@ -89,5 +89,6 @@ void	ft_frees(t_args *args);
 void	ft_free_paths(t_args *args);
 void	ft_free_rooms(t_args *args);
 void	ft_free_ants(t_args *args);
+void	ft_error(void);
 
 #endif

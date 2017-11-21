@@ -6,7 +6,7 @@
 /*   By: kroutled <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 09:21:21 by kroutled          #+#    #+#             */
-/*   Updated: 2017/11/21 09:21:30 by kroutled         ###   ########.fr       */
+/*   Updated: 2017/11/21 13:04:59 by kroutled         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_free_rooms(t_args *args)
 	}
 }
 
-void    ft_free_ants(t_args *args)
+void	ft_free_ants(t_args *args)
 {
 	int		i;
 
@@ -77,4 +77,10 @@ void    ft_free_ants(t_args *args)
 		i++;
 	}
 	free(args->ants);
+}
+
+void	ft_error(void)
+{
+	ft_putendl("ERROR");
+	exit(0);
 }
