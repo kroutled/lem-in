@@ -90,5 +90,6 @@ void	ft_free_paths(t_args *args);
 void	ft_free_rooms(t_args *args);
 void	ft_free_ants(t_args *args);
 void	ft_error(void);
+void	ft_set_anthill(t_args *args, t_vars *vars);
 
 #endif
