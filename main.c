@@ -35,11 +35,13 @@ void	ft_startend_checkroom(t_args *args, t_vars *vars)
 	vars->end = 0;
 	while (args->rooms[vars->start]->start == 0)
 	{
-		vars->start++;
+		if(args->rooms[++vars->start] == NULL)
+			ft_error();
 	}
 	while (args->rooms[vars->end]->end == 0)
 	{
-		vars->end++;
+		if(args->rooms[++vars->end] == NULL)
+			ft_error();
 	}
 	args->rooms[vars->start]->full = vars->numants;
 }
